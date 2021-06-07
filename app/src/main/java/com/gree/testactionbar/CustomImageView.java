@@ -9,7 +9,9 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -18,7 +20,7 @@ import androidx.appcompat.widget.AppCompatImageView;
  * @author YC_chen
  */
 
-public class CustomImageView extends AppCompatImageView {
+public class CustomImageView extends AppCompatImageView implements View.OnClickListener {
     private static final String TAG = "CustomImageView";
     //控件是否能平移
     private boolean mCanTranslate = false;
@@ -192,6 +194,7 @@ public class CustomImageView extends AppCompatImageView {
      * 初始化图片的大小与位置
      */
     private void initImagePositionAndSize() {
+        setOnClickListener(this);
         mCurrentMatrix.reset();
         upDateBoundRectF();
         float scaleFactor = Math.min(getWidth() / mBoundRectF.width(), getHeight() / mBoundRectF.height());
@@ -314,7 +317,7 @@ public class CustomImageView extends AppCompatImageView {
                 mCanRotate = false;
                 break;
         }
-        return true;
+        return super.onTouchEvent(event);
     }
 
     /**
@@ -555,4 +558,9 @@ public class CustomImageView extends AppCompatImageView {
             transform();
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        Log.e("Brandon","onclick");
+    }
 }

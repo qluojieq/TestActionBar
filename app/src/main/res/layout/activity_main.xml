@@ -42,11 +42,12 @@
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <ImageView
+    <com.gree.testactionbar.ScaleImageView
         android:id="@+id/previewImage"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:scaleType="centerInside"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />

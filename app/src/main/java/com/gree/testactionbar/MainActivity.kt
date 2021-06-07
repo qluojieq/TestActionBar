@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var image: CustomImageView
     private lateinit var btn:Button
     private lateinit var btnSave:Button
-    private lateinit var previewImage: ImageView
+    private lateinit var previewImage: ScaleImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
