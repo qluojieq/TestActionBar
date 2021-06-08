@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 //            image.layout(0,0,300,300)
             image.draw(canvas)
 
-            previewImage.setImageBitmap( Bitmap.createBitmap(bitmap,300,300,300,300))
+            previewImage.setImageBitmap( Bitmap.createBitmap(bitmap,0,0,900,900))
         }
         btn.setOnClickListener {
             var intent = Intent()

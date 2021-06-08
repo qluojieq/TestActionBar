@@ -223,6 +223,8 @@ public class CustomImageView extends AppCompatImageView implements View.OnClickL
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        Log.e("brandon","event other move" + event.getAction());
         switch (event.getActionMasked()) {
             //单点触控，设置图片可以平移、不能旋转和缩放
             case MotionEvent.ACTION_DOWN:
@@ -248,9 +250,11 @@ public class CustomImageView extends AppCompatImageView implements View.OnClickL
                     mLastDist = distance(event);
                     //设置向量，以便于计算角度
                     mLastVector.set(event.getX(0) - event.getX(1), event.getY(0) - event.getY(1));
+                    Log.e("brandon","last" + mLastDist);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
+
                 //判断能否平移操作
                 if (mCanTranslate) {
                     float dx = event.getX() - mLastSinglePoint.x;
@@ -263,7 +267,8 @@ public class CustomImageView extends AppCompatImageView implements View.OnClickL
                 //判断能否缩放操作
                 if (mCanScale) {
                     float scaleFactor = distance(event) / mLastDist;
-                    scale(scaleFactor);
+                    Log.e("Brandon",distance(event)+"++"+mLastDist);
+                    scale(scaleFactor,event);
                     //重置mLastDist，让下次缩放在此基础上进行
                     mLastDist = distance(event);
                 }
@@ -307,7 +312,7 @@ public class CustomImageView extends AppCompatImageView implements View.OnClickL
                 }
                 //获得动画结束之后的矩阵
                 mCurrentMatrix.getValues(mEndMatrixValues);
-                mAnimator.start();
+//                mAnimator.start();
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
@@ -383,7 +388,16 @@ public class CustomImageView extends AppCompatImageView implements View.OnClickL
         mTotalScaleFactor *= scaleFactor;
         mCurrentMatrix.postScale(scaleFactor, scaleFactor, mBoundRectF.centerX(), mBoundRectF.centerY());
     }
-
+    /**
+     * 图像缩放操作
+     *
+     * @param scaleFactor 缩放比例因子
+     */
+    protected void scale(float scaleFactor,MotionEvent event) {
+        //累乘得到总的的缩放因子
+        mTotalScaleFactor *= scaleFactor;
+        mCurrentMatrix.postScale(scaleFactor, scaleFactor, (event.getX(0)+event.getX(1))/2, (event.getY(0)+event.getY(1))/2);
+    }
 
     /**
      * 旋转操作
@@ -393,7 +407,6 @@ public class CustomImageView extends AppCompatImageView implements View.OnClickL
     protected void rotation(float degree) {
         //旋转变换
         mCurrentMatrix.postRotate(degree, mBoundRectF.centerX(), mBoundRectF.centerY());
-
     }
 
     /**
