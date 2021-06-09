@@ -41,6 +41,9 @@ class ScaleImageView : AppCompatImageView {
 
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
         scaleType = ScaleType.MATRIX
+        this.setOnClickListener {
+            Log.e("brandon","clicked")
+        }
     }
 
 
@@ -79,7 +82,7 @@ class ScaleImageView : AppCompatImageView {
                 checkPointerCount(event.pointerCount)
                 if (translatable) {
                     oldSinglePoint.set(event.x, event.y)
-                    return true
+//                    return true
                 }
             }
             ACTION_POINTER_DOWN -> {
